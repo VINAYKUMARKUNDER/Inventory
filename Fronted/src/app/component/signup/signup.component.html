@@ -1,0 +1,229 @@
+<section class="vh-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div
+          class="card shadow-2-strong card-registration"
+          style="border-radius: 15px"
+        >
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+            <form
+              #ProfileData="ngForm"
+              class="form-disign"
+              (ngSubmit)="profileCreate(ProfileData.value)"
+            >
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      placeholder="First name"
+                      id="firstName"
+                      name="first_name"
+                      class="form-control form-control-sm"
+                      ngModel
+                      required
+                    />
+                    <label class="form-label" for="firstName">First Name</label>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      placeholder="Last name"
+                      id="lastName"
+                      class="form-control form-control-sm"
+                      name="last_name"
+                      ngModel
+                    />
+                    <label class="form-label" for="lastName">Last Name</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 mb-4 d-flex align-items-center form-group">
+                  <div class="form-group datepicker w-100">
+                    <input
+                      type="text"
+                      placeholder="address 1"
+                      class="form-control form-control-sm"
+                      id="address1"
+                      name="address1"
+                      ngModel
+                    />
+                    <label for="address1" class="form-label">Address 1</label>
+                  </div>
+                </div>
+
+                <div class="col-md-4 mb-4 d-flex align-items-center form-group">
+                  <div class="form-group datepicker w-100">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="address2"
+                        name="address2"
+                        placeholder="address 2"
+                        ngModel
+                        required
+                      />
+                    <label for="address2" class="form-label">Address 2</label>
+                  </div>
+                </div>
+
+                <div class="col-md-4 mb-4 d-flex align-items-center">
+                  <div class="form-group datepicker w-100 ">
+                    <input
+                      type="text"
+                      placeholder="address 3"
+                      class="form-control form-control-sm"
+                      id="address3"
+                      name="address3"
+                      ngModel
+
+                    />
+                    <label for="address3" class="form-label">Address 3</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <h6 class="mb-2 pb-1">Gender:</h6>
+
+                  <div class="form-check form-check-inline form-group">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="gender"
+                      id="femaleGender"
+                      value="female"
+                      checked
+                      ngModel
+                    />
+                    <label class="form-check-label" for="female">Female</label>
+                  </div>
+
+                  <div class="form-check form-check-inline form-group">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="gender"
+                      id="gender"
+                      value="male"
+                      ngModel
+                    />
+                    <label class="form-check-label" for="male">Male</label>
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input form-group"
+                      type="radio"
+                      name="gender"
+                      id="gender"
+                      ngModel
+                      value="other"
+                    />
+                    <label class="form-check-label" for="other">Other</label>
+                  </div>
+                </div>
+
+                <div class="col-md-4 mb-4 d-flex align-items-center">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="pincode"
+                      name="pincode"
+                      ngModel
+                      required
+                    />
+                    <label for="pincode" class="form-label">Pincode</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 mb-4 pb-2">
+                  <div class="form-group">
+                    <input
+                      type="email"
+                      placeholder="email"
+                      class="form-control form-control-sm"
+                      name="email"
+                      ngModel
+                    />
+                    <label class="form-label" for="email">Email</label>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-4 pb-2">
+                  <div class="form-group">
+                    <input
+                      type="tel"
+                      placeholder="Phone number"
+                      id="mobile"
+                      class="form-control form-control-sm"
+                      name="mobile"
+                      ngModel
+                    />
+                    <label class="form-label" for="phoneNumber"
+                      >Phone Number</label
+                    >
+                  </div>
+                </div>
+
+                <div class="col-md-4 mb-4 pb-2">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      placeholder="password"
+                      id="password"
+                      class="form-control form-control-sm"
+                      name="password"
+                      ngModel
+                    />
+                    <label class="form-label" for="password"
+                      >Password</label
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-6">
+                  <select class="select form-control-sm" name="role_id" ngModel>
+                    <option value="">Choose Role</option>
+                    <option value="1">SALES</option>
+                    <option value="2">ADMIN</option>
+                    <option value="3">USER</option>
+                    <option value="4">OPRATION</option>
+                    <option value="5">PAYMENT</option>
+                  </select>
+                  <label class="form-label select-label">Choose Role</label>
+                </div>
+
+                <div class="col-6">
+                  <select class="select form-control-sm">
+                    <label for="image">Select files:</label>
+                    <input type="file" id="image" name="image" />
+                  </select>
+                </div>
+              </div>
+
+              <div class="mt-4 pt-2">
+                <input
+                  class="btn btn-primary btn-lg"
+                  type="submit"
+                  value="Submit"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

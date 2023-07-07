@@ -1,0 +1,101 @@
+
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  border-radius: 50px;
+  background-color: rgba(92, 89, 89, 0.5);
+
+}
+
+.popup-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  width: 50%;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.popup-content h2 {
+  margin-top: 0;
+}
+
+.popup-content p {
+  margin-bottom: 20px;
+}
+
+.popbox-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  overflow: auto; /* Enable scroll */
+}
+
+.popbox-content {
+  /* background-color: #fff; */
+  padding: 20px;
+  max-width: 100%;
+  text-align: center;
+}
+
+#openBtn {
+  margin-top: 100px;
+}
+
+#closeBtn {
+  margin-top: 20px;
+}
+
+
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+
+
+.cart-cant{
+  margin-top: 30px;
+  margin-bottom: 20px;
+  padding: 20px 2px 30px 2px;
+  border-radius: 5px;
+  background-color: rgb(219, 219, 219);
+}
+
+.cart-heading{
+  text-align: center;
+  font-weight: 900;
+}
+
+
+.book-order{
+  padding: 30px 0px 10px 0px;
+}
+
+.allOrder{
+  background-color: rgb(231, 205, 205);
+  border-radius: 10px;
+}
+
+.head-text{
+  color: rgb(13, 164, 223);
+}

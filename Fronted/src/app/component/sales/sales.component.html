@@ -1,0 +1,740 @@
+<div id="hero">
+  <div
+    id="heroCarousel"
+    data-bs-interval="5000"
+    class="carousel slide carousel-fade"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-inner" role="listbox">
+      <!-- Slide 1 -->
+      <div
+        style="background-image: url(../../../assets/image/slide/slide-2.jpg)"
+      >
+        <div class="carousel-container">
+          <div class="container">
+            <h2 class="animate__animated animate__fadeInDown">
+              Welcome to <span>Sales Panel</span>
+            </h2>
+            <p class="animate__animated animate__fadeInUp">
+              We are technical Global company. We are bringing people and
+              technology of the different parts of the world together to make
+              and achieve technical solutions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container navbar navbar bg-info mt-5">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a
+        data-toggle="tab"
+        href="#view-order"
+        (focus)="getAllOrder('all')"
+        class="text-danger font-weight-bold"
+        >Your Order</a
+      >
+    </li>
+    <li>
+      <a
+        data-toggle="tab"
+        href="#book-order"
+        class="text-danger font-weight-bold"
+        >Book Order</a
+      >
+    </li>
+    <li>
+      <a
+        data-toggle="tab"
+        href="#customer"
+        (focus)="getAllCustomerBySalesId()"
+        class="text-danger font-weight-bold"
+        >Customer</a
+      >
+    </li>
+    <li>
+      <a
+        data-toggle="tab"
+        href="#notification"
+        (focus)="getAllNotificationBySales()"
+        class="text-danger font-weight-bold"
+        >Notification</a
+      >
+    </li>
+  </ul>
+</div>
+
+<div class="container tab-content">
+
+  <div id="view-order" class="tab-pane fade in active">
+    <h1 class="text-center head-text">All orders</h1>
+    <div class="allOrder">
+      <table class="table table-responsive">
+        <div class="row">
+          <div class="col-1">
+            <button class="btn btn-primary m-1" (click)="getAllOrder('all')">
+              View All
+            </button>
+          </div>
+          <div class="col-1">
+            <button class="btn btn-success m-1" (click)="getAllOrder('accept')">
+              Accept
+            </button>
+          </div>
+          <div class="col-1">
+            <button
+              class="btn btn-warning m-1"
+              (click)="getAllOrder('pending')"
+            >
+              Pending
+            </button>
+          </div>
+          <div class="col-1">
+            <button class="btn btn-danger m-1" (click)="getAllOrder('reject')">
+              Reject
+            </button>
+          </div>
+        </div>
+        <thead>
+          <tr class="text-white bg-danger">
+            <th>order id</th>
+            <th>Order Type</th>
+            <th>Pending Amount</th>
+            <th>Total Amount</th>
+            <th>Date Time</th>
+            <th>Status</th>
+            <th>Customer Name</th>
+            <th>Details</th>
+            <th>Cancel Order</th>
+            <th>Pay amount</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of orderProducts">
+            <td>{{ item.order_id }}</td>
+            <td>{{ item.order_type }}</td>
+            <td>{{ item.pending_payment }}.00</td>
+
+            <td>{{ item.total_amount_With_allTex }}.00</td>
+            <td>{{ item.createdAt }}</td>
+            <td>{{ item.status }}</td>
+            <td>
+              {{ item.Customer.first_name }} {{ item.Customer.last_name }}
+            </td>
+            <td>
+              <button
+                class="btn btn-primary"
+                (click)="getAllOrderDetailsBuOrderId(item.order_id)"
+                data-toggle="modal"
+                data-target="#view-customer"
+              >
+                View
+              </button>
+            </td>
+            <td><button class="btn btn-danger">Cancel</button></td>
+            <td>
+              <button
+                class="btn btn-success"
+                (click)="getAllTransactionByOrderId(item.order_id)"
+                data-toggle="modal"
+                data-target="#transaction"
+              >
+                view Transaction History
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- see all added product -->
+  <div id="book-order" class="tab-pane fade">
+    <div *ngIf="cart.length > 0">
+      <h2 class="m-5 text-center head-text">Create Order</h2>
+      <div class="cart-cant">
+        <h3 class="cart-heading">Your Cart</h3>
+        <table class="table table-responsive">
+          <thead>
+            <tr>
+              <th>order id</th>
+              <th>Product Name</th>
+              <th>Time</th>
+              <th>Product Quantity</th>
+              <th>Price/unit</th>
+              <th>GST Amount <strong>18%</strong></th>
+              <th>Active Plan/year</th>
+              <th>activation charge/unit</th>
+              <th>Total Activation Charge</th>
+              <th>total price</th>
+              <th>View Products</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let item of cart">
+              <td>{{ item.manageOrder_id }}</td>
+              <td>{{ item.Product.product_name }}</td>
+              <td>{{ item.createdAt }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.Product.price }}</td>
+              <td>{{ item.gst_amount }}.00</td>
+              <td>{{ item.recharge_plan }}</td>
+              <td>{{ item.recharge_amount }}.00</td>
+              <td>{{ item.total_recharge_amount }}.00</td>
+              <td>{{ item.amount_with_gst_and_recharge }}.00</td>
+              <td>
+                <button
+                  class="btn btn-primary"
+                  (click)="productFindByCartId(item.Product.product_id)"
+                >
+                  View
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <div class="">
+        <div class="row">
+          <div class="col-2">
+            <span>Product:</span>
+            <select #product (blur)="viewPlan(product.value)">
+              <option value="default">----</option>
+              <option
+                *ngFor="let product of Products"
+                [value]="product.product_id"
+              >
+                {{ product.product_name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="col-2">
+            <span>Plan:</span>
+            <select #plan (blur)="duration(plan.value)">
+              <option value="default">----</option>
+              <option
+                *ngFor="let plan of Plans"
+                [value]="plan.duration_in_year"
+              >
+                {{ plan.duration_in_year }} year --- {{ plan.plan_price }} Rs.
+              </option>
+            </select>
+          </div>
+          <div class="col-1">
+            <span>GST:</span><input type="checkbox" [(ngModel)]="isGST" />
+          </div>
+
+          <div class="col-3">
+            <span>Quantity:</span><input type="number" [(ngModel)]="quantity" />
+          </div>
+
+          <div class="col-2">
+            <button class="btn btn-primary" (click)="create_Order()">
+              Add Product
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- create order -->
+    <div>
+      <div class="">
+        <div class="row">
+          <div class="col-6"></div>
+
+          <div class="col-3">
+            <span>Customers: </span>
+            <select
+              name=""
+              id=""
+              (focus)="getAllCustomerBySalesId()"
+              #customer
+              (blur)="setCustomer_id(customer.value)"
+            >
+              <option value="default">----</option>
+              <option
+                *ngFor="let customer of customersData"
+                [value]="customer.customer_id"
+              >
+                {{ customer.first_name }} {{ customer.last_name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-info ml-3" (click)="bookOrder()">
+              Book Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customers data -->
+  <div class="customers tab-pane fade" id="customer">
+    <h2 class="m-5 text-center head-text">Customers bio-data</h2>
+
+    <div class="mb-5">
+      <table class="table table-responsive">
+        <thead>
+          <tr class="text-white bg-secondary">
+            <th>Customer id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Address</th>
+            <th>Pincode</th>
+            <th>Time</th>
+            <th>Cancel Order</th>
+            <th>Pay amount</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let customer of customersData">
+            <td>{{ customer.customer_id }}</td>
+            <td>{{ customer.first_name }} {{ customer.last_name }}</td>
+
+            <td>{{ customer.email }}.00</td>
+            <td>{{ customer.mobile }}</td>
+            <td>
+              {{ customer.address1 }} {{ customer.address2 }}
+              {{ customer.address3 }}
+            </td>
+            <td>{{ customer.pincode }}</td>
+            <td>{{ customer.createdAt }}</td>
+            <td><button class="btn btn-info">View</button></td>
+            <td><button class="btn btn-success">Update</button></td>
+          </tr>
+        </tbody>
+        <div class="row">
+          <div class="col-10"></div>
+          <div class="col-2 text-right">
+            <button
+              class="btn btn-info"
+              data-toggle="modal"
+                data-target="#customer"
+            >
+              Add Customer
+            </button>
+          </div>
+        </div>
+      </table>
+    </div>
+  </div>
+
+  <!-- Notification -->
+  <div id="notification" class="tab-pane fade">
+    <h2 class="m-5 text-center head-text">Notification</h2>
+
+    <div class="mb-5">
+      <table class="table table-responsive">
+        <thead>
+          <tr class="text-danger bg-dark">
+            <th>Notification id</th>
+            <th>Massage</th>
+            <th>why</th>
+            <th>time</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let notification of notificationData">
+            <td>{{ notification.notification_id }}</td>
+
+            <td>{{ notification.msg }}</td>
+            <td>{{ notification.reasion }}</td>
+            <td>{{ notification.createdAt }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- add customer -->
+<!-- <div class="vh-100 gradient-custom popbox-container" id="popbox">
+  <div class="container py-5 h-100 popbox-content">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div
+          class="card shadow-2-strong card-registration"
+          style="border-radius: 15px"
+        >
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+            <form
+              #ProfileData="ngForm"
+              class="form-disign"
+              (ngSubmit)="addCustomer(ProfileData.value)"
+            >
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      placeholder="First name"
+                      id="firstName"
+                      name="first_name"
+                      class="form-control form-control-sm"
+                      ngModel
+                      required
+                    />
+                    <label class="form-label" for="firstName"
+                      >First Name</label
+                    >
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      placeholder="Last name"
+                      id="lastName"
+                      class="form-control form-control-sm"
+                      name="last_name"
+                      ngModel
+                    />
+                    <label class="form-label" for="lastName"
+                      >Last Name</label
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div
+                  class="col-md-4 mb-4 d-flex align-items-center form-group"
+                >
+                  <div class="form-group datepicker w-100">
+                    <input
+                      type="text"
+                      placeholder="address 1"
+                      class="form-control form-control-sm"
+                      id="address1"
+                      name="address1"
+                      ngModel
+                    />
+                    <label for="address1" class="form-label"
+                      >Address 1</label
+                    >
+                  </div>
+                </div>
+
+                <div
+                  class="col-md-4 mb-4 d-flex align-items-center form-group"
+                >
+                  <div class="form-group datepicker w-100">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="address2"
+                      name="address2"
+                      placeholder="address 2"
+                      ngModel
+                    />
+                    <label for="address2" class="form-label"
+                      >Address 2</label
+                    >
+                  </div>
+                </div>
+
+                <div class="col-md-4 mb-4 d-flex align-items-center">
+                  <div class="form-group datepicker w-100">
+                    <input
+                      type="text"
+                      placeholder="address 3"
+                      class="form-control form-control-sm"
+                      id="address3"
+                      name="address3"
+                      ngModel
+                    />
+                    <label for="address3" class="form-label"
+                      >Address 3</label
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <h6 class="mb-2 pb-1">Gender:</h6>
+
+                  <div class="form-check form-check-inline form-group">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="gender"
+                      id="femaleGender"
+                      value="female"
+                      checked
+                      ngModel
+                    />
+                    <label class="form-check-label" for="female"
+                      >Female</label
+                    >
+                  </div>
+
+                  <div class="form-check form-check-inline form-group">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="gender"
+                      id="gender"
+                      value="male"
+                      ngModel
+                    />
+                    <label class="form-check-label" for="male">Male</label>
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input form-group"
+                      type="radio"
+                      name="gender"
+                      id="gender"
+                      ngModel
+                      value="other"
+                    />
+                    <label class="form-check-label" for="other"
+                      >Other</label
+                    >
+                  </div>
+                </div>
+
+                <div class="col-md-4 mb-4 d-flex align-items-center">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="pincode"
+                      name="pincode"
+                      ngModel
+                      required
+                    />
+                    <label for="pincode" class="form-label">Pincode</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 mb-4 pb-2">
+                  <div class="form-group">
+                    <input
+                      type="email"
+                      placeholder="email"
+                      class="form-control form-control-sm"
+                      name="email"
+                      ngModel
+                    />
+                    <label class="form-label" for="email">Email</label>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-4 pb-2">
+                  <div class="form-group">
+                    <input
+                      type="tel"
+                      placeholder="Phone number"
+                      id="mobile"
+                      class="form-control form-control-sm"
+                      name="mobile"
+                      ngModel
+                    />
+                    <label class="form-label" for="phoneNumber"
+                      >Phone Number</label
+                    >
+                  </div>
+                </div>
+
+                <div class="col-md-4 mb-4 pb-2">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      placeholder="password"
+                      id="password"
+                      class="form-control form-control-sm"
+                      name="password"
+                      ngModel
+                    />
+                    <label class="form-label" for="password"
+                      >Password</label
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-4 pt-2">
+                <input
+                  class="btn btn-primary btn-lg"
+                  type="submit"
+                  value="Submit"
+                  id="closeBtn"
+                  (click)="closeRegistationPopup()"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+ -->
+
+<div class="modal fade" id="customer" role="">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <h1>wele</h1>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- transaction module -->
+<div class="modal fade" id="transaction" role="">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <table
+          id="transaction-table"
+          class="table table-responsive table-hover"
+        >
+          <thead>
+            <tr class="text-white bg-info">
+              <th>Transaction id</th>
+              <th>Amount</th>
+              <th>Remark</th>
+              <th>Date Time</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr
+              *ngFor="let transaction of transactionHistoryData"
+              class="text-success"
+            >
+              <td>{{ transaction.transaction_id }}</td>
+              <td>{{ transaction.payment }}.00</td>
+              <td>{{ transaction.remark }}</td>
+              <td>{{ transaction.createdAt }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button (click)="exportTableToCSV()" class="btn btn-primary">
+          Export to CSV
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- view order details -->
+
+<div class="modal fade" id="view-customer" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <li class="list-group-item">Customer name: {{viewOrder.first_name}} {{viewOrder.last_name}}</li>
+          <li class="list-group-item">Order Id: {{viewOrder.order_id}}</li>
+          <li class="list-group-item">Order type: {{viewOrder.order_type}}</li>
+          <li class="list-group-item">Total Amount: {{viewOrder.total_amount_With_allTex}}</li>
+          <li class="list-group-item">Panding Payment: {{viewOrder.pending_payment}}</li>
+          <li class="list-group-item">Order time: {{viewOrder.createdAt}}</li>
+          <li class="list-group-item">GST: {{viewOrder.gst_status }}</li>
+        </ul>
+
+
+
+          <h3 class="cart-heading">Your Cart</h3>
+          <table class="table table-responsive table-hover">
+            <thead class="bg-warning">
+              <tr>
+                <th>order id</th>
+                <th>Product Name</th>
+                <th>Time</th>
+                <th>Product Quantity</th>
+                <th>Price/unit</th>
+                <th>GST Amount <strong>18%</strong></th>
+                <th>Active Plan/year</th>
+                <th>activation charge/unit</th>
+                <th>Total Activation Charge</th>
+                <th>total price</th>
+                <th>View Products</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let item of manageOrder">
+                <td>{{ item.manageOrder_id }}</td>
+                <td>{{ item.Product.product_name }}</td>
+                <td>{{ item.createdAt }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.Product.price }}</td>
+                <td>{{ item.gst_amount }}.00</td>
+                <td>{{ item.recharge_plan }}</td>
+                <td>{{ item.recharge_amount }}.00</td>
+                <td>{{ item.total_recharge_amount }}.00</td>
+                <td>{{ item.amount_with_gst_and_recharge }}.00</td>
+                <td>
+                  <button
+                    class="btn btn-primary"
+                    (click)="productFindByCartId(item.Product.product_id)"
+                  >
+                    View
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

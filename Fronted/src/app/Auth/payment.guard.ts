@@ -1,0 +1,13 @@
+import { CanActivateFn } from '@angular/router';
+import jwtDecode from 'jwt-decode';
+
+export const paymentGuard: CanActivateFn = (route, state) => {
+
+  const token = localStorage.getItem('token');
+  if(token==null)return false;
+  const tokenValue= Object(jwtDecode(token));
+  const Role =  tokenValue.profile.Role.roleName;
+
+    if(Role=='PAYMENT') return true;
+    return false;
+};

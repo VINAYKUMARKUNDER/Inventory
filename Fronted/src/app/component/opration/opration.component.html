@@ -1,0 +1,142 @@
+<Section class="m-5" *ngIf="viewStatus == 'view-order'">
+  <h2 class="text-center m-5">Products</h2>
+  <div class="container">
+    <div id="main">
+      <div *ngFor="let product of acceptedProduct" class="product">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title wrap">Order id: {{ product.order_id }}</h5>
+
+            <button
+              class="btn btn-primary"
+              (click)="getAllManageDataByOrderId(product.order_id)"
+              (click)="changeViewStatus('imei')"
+            >
+              View Products
+            </button>
+
+            <div *ngIf="dispatch_status && (this.dispatch_order == product.order_id)">
+              <div class="row">
+                <select
+                  name=""
+                  id=""
+                  #status
+                  (change)="changeOrder_type(status.value)"
+                >
+                  <option value="">Select</option>
+                  <option value="shop">Shop</option>
+                  <option value="onlion">Onlion</option>
+                  <option value="other">Other</option>
+                </select>
+                <button
+                  class="btn btn-success"
+                  (click)="dispatchOrder(product.order_id)"
+                >
+                  Dispatch
+                </button>
+              </div>
+            </div>
+            <button
+              class="btn btn1 btn-success"
+              (click)="changeDispatchStatus(product.order_id)"
+              *ngIf="!(dispatch_status && (this.dispatch_order == product.order_id))"
+            >
+              Dispatch
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Section>
+
+<section *ngIf="viewStatus == 'imei'">
+  <h2 class="text-center m-5">All Products</h2>
+  <div class="container products m-5 p-5">
+    <div class="row">
+      <div class="col-10"></div>
+      <div class="col-2">
+        <button
+          class="btn btn-info m-5"
+          (click)="changeViewStatus('view-order')"
+        >
+          CLOSE
+        </button>
+      </div>
+    </div>
+
+    <div id="main">
+      <div *ngFor="let order of manageOrder" class="product">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title wrap">
+              Order id: {{ order.manageOrder_id }}
+            </h5>
+            <p>
+              <strong>Product name:</strong> {{ order.Product.product_name }}
+            </p>
+            <p><strong>Quantity:</strong> {{ order.quantity }}</p>
+            <p
+              class="card-title overflow-auto p-3 bg-light"
+              style="max-width: 260px; max-height: 100px"
+            >
+              IMEIs: {{ order.product_IMEIs }}
+            </p>
+            <button
+              class="btn btn-primary"
+              (click)="changeViewStatus('add')"
+              (focus)="
+                num_Of_ProductsAnd_OrderId(order.quantity, order.manageOrder_id)
+              "
+              *ngIf="!order.product_IMEIs; disabled"
+            >
+              Add IMEI
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- add imei number -->
+<section *ngIf="viewStatus == 'add'">
+  <div class="container products m-5 p-5">
+    <div class="row">
+      <div class="col-10"></div>
+      <div class="col-2">
+        <button
+          class="btn btn-info m-5"
+          (click)="changeViewStatus('imei')"
+        >
+          CLOSE
+        </button>
+      </div>
+    </div>
+
+    <div class="container m-5">
+      <div *ngFor="let n of numSequence(num_Of_Product); let i = index">
+        <form action="" #imei="ngForm" (ngSubmit)="addImeiInArray(imei.value)">
+          <input
+            type="text"
+            class="m-2"
+            placeholder="Add IMEI number"
+            name="imei"
+            ngModel
+            *ngIf="Imei_Number.length < i + 1; disabled"
+          />
+          <input
+            type="submit"
+            class="btn btn-info"
+            value="Add"
+            *ngIf="Imei_Number.length < i + 1; disabled"
+          />
+        </form>
+      </div>
+
+      <button class="btn btn-success" (click)="addImeiInDatabase()">
+        Submit
+      </button>
+    </div>
+  </div>
+</section>

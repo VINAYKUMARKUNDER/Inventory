@@ -1,0 +1,33 @@
+<!-- Jumbotron -->
+<section class="jumbotron">
+  <div class="container">
+    <h1 class="display-4">Our Products</h1>
+    <p class="lead"></p>
+  </div>
+</section>
+
+
+
+<!-- product -->
+
+<section class="product">
+  <div class="container">
+    <div id="main">
+      <div *ngFor="let product of Products" class="product">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title wrap">Type: {{ product.product_Type }}</h5>
+            <h6 class="card-title">Product Name: {{ product.product_name }}</h6>
+            <!-- <p class="card-text wrap">Description: {{ product.about }}</p> -->
+            <p class="card-text">Price: {{ product.price }} Ru.</p>
+            <!-- <p class="card-text">Company: {{ product.mfgcompany }}</p> -->
+            <button class="btn btn-primary" (click)="viewPlan(product.product_id)">View Plan</button>
+            <button class="btn btn1 btn-success" (click)="buy()">BUY</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+

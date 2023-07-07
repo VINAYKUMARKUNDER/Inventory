@@ -1,0 +1,22 @@
+{
+  "version": "0.0.0",
+  "name": "fronted",
+  "dependencies": {
+    "@angular/animations": { "version": "16.1.1" },
+    "@angular/cdk": { "version": "16.1.2" },
+    "@angular/common": { "version": "16.1.1" },
+    "@angular/compiler": { "version": "16.1.1" },
+    "@angular/core": { "version": "16.1.1" },
+    "@angular/forms": { "version": "16.1.1" },
+    "@angular/material": { "version": "16.1.2" },
+    "@angular/platform-browser-dynamic": { "version": "16.1.1" },
+    "@angular/platform-browser": { "version": "16.1.1" },
+    "@angular/router": { "version": "16.1.1" },
+    "dotenv": { "version": "16.3.1" },
+    "glightbox": { "version": "3.2.0" },
+    "jwt-decode": { "version": "3.1.2" },
+    "rxjs": { "version": "7.8.1" },
+    "tslib": { "version": "2.5.3" },
+    "zone.js": { "version": "0.13.1" }
+  }
+}

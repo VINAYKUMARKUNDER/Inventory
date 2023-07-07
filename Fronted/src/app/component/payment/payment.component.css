@@ -1,0 +1,56 @@
+body {
+  padding: 20px;
+}
+
+.receipt-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo img {
+  max-height: 80px;
+}
+
+.company-info {
+  margin-bottom: 20px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.info-item span {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.customer-info {
+  margin-bottom: 20px;
+}
+
+.transaction-info {
+  margin-bottom: 20px;
+}
+
+.transaction-info table {
+  width: 100%;
+}
+
+.transaction-info table td {
+  padding: 8px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.thanks-msg {
+  text-align: center;
+}

@@ -1,0 +1,106 @@
+<section id="hero">
+  <div
+    id="heroCarousel"
+    data-bs-interval="5000"
+    class="carousel slide carousel-fade"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-inner" role="listbox">
+      <!-- Slide 1 -->
+      <div
+        style="background-image: url(../../../assets/image/slide/slide-1.jpg)"
+      >
+        <div class="carousel-container">
+          <div class="container">
+            <h2 class="animate__animated animate__fadeInDown">
+              Welcome to <span>Admin Panel</span>
+            </h2>
+            <p class="animate__animated animate__fadeInUp">
+              We are technical Global company. We are bringing people and
+              technology of the different parts of the world together to make
+              and achieve technical solutions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio" class="portfolio">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 justify-content-center">
+        <ul id="portfolio-flters">
+          <li (click)="getAllDataByStatus('_')">All</li>
+          <li (click)="getAllDataByStatus('pending')">pending</li>
+          <li (click)="getAllDataByStatus('accept')">accept</li>
+          <li (click)="getAllDataByStatus('reject')">reject</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 justify-content-center">
+        <table class="table table-responsive">
+          <thead>
+        <tr>
+          <th>order id</th>
+          <th>Product</th>
+          <th>Time</th>
+          <th>Product Quantity</th>
+          <th>gst amount</th>
+          <th>About gst</th>
+          <th>activation charge</th>
+          <th>gross price</th>
+          <th>total price</th>
+          <th>status</th>
+          <th>Change status</th>
+          <th>View Products</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of dataByStatus">
+
+            <td>{{item.order_id}}</td>
+            <td>{{item.order_type}}</td>
+            <td>{{item.createdAt}}</td>
+            <td>Product Quantity</td>
+            <td>{{item.total_gst_amount}}</td>
+            <td ></td>
+            <td>{{item.total_recharge_amount}}</td>
+            <td>{{item.total_ganuine_amount}}</td>
+            <td>{{item.total_amount_With_allTex}}</td>
+            <td>{{item.status}}</td>
+            <td><button class="btn btn-primary">
+              <select class="btn-primary"  #status (change)="updateOrderStatus(status.value,item.order_id)">
+              <option value="" >Status</option>
+              <option value="reject" >Reject</option>
+              <option value="accept" >Accept</option>
+              <option value="pending" >Pending</option>
+            </select>
+            </button></td>
+            <td><button class="btn btn-success" (click)="getOrderDetails(item.order_id)">View Products</button></td>
+
+
+
+      </tr>
+      </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+

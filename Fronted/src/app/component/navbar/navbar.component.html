@@ -1,0 +1,88 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light p-2 ">
+  <a class="navbar-brand font-weight-bold" routerLink="">LOGO</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li><a routerLink="" class="active">Home</a></li>
+      <li><a routerLink="product">Products</a></li>
+
+      <li>
+        <a routerLink="admin" *ngIf="authloginService.getRole() == 'ADMIN'"
+          >Admin</a
+        >
+      </li>
+      <li>
+        <a routerLink="sales" *ngIf="authloginService.getRole() == 'SALES'"
+          >Sales</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="opration"
+          *ngIf="authloginService.getRole() == 'OPRATION'"
+          >Opration</a
+        >
+      </li>
+      <li>
+        <a routerLink="customer" *ngIf="authloginService.getRole() == 'USER'"
+          >User</a
+        >
+      </li>
+
+      <li class="dropdown">
+        <a routerLink=""><span>About</span> <i class="bi bi-chevron-down"></i></a>
+      </li>
+
+      <li><a routerLink="page">Contact</a></li>
+
+      <li>
+        <a routerLink="payment" *ngIf="authloginService.getRole() == 'PAYMENT'"
+          >Payment</a
+        >
+      </li>
+
+
+    <form action="">
+
+        <a routerLink="login" class="login mr-5" *ngIf="!authloginService.loggedIn()"
+          >Login</a
+        >
+
+
+        <a
+          routerLink="login mr-5"
+          class="login"
+          *ngIf="authloginService.loggedIn()"
+          (click)="logout()"
+          >Logout</a
+        >
+
+    </form>
+  </ul>
+  </div>
+</nav>
+
+<div class="padding"></div>
+
+
+
+
+
+
+
+
+
+
+
+<router-outlet></router-outlet>
